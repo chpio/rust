@@ -139,3 +139,11 @@ fn check_cow_clone_from() {
     c1.clone_from(&c2);
     assert!(c1.into_owned().capacity() >= 25);
 }
+
+#[test]
+fn check_cow_clone_from_from_borrowed() {
+    let mut c1: Cow<'_, str> = Cow::Owned(String::with_capacity(25));
+    let c2: Cow<'_, str> = Cow::Borrowed("hi");
+    c1.clone_from(&c2);
+    assert!(c1.into_owned().capacity() >= 25);
+}
